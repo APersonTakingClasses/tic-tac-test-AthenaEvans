@@ -34,7 +34,22 @@ public class TicTacToeBoard {
         /*
          * TODO - Based on the current state of the board, is the game still ongoing, has a player won, or is there a tie?
          */
-        return GameState.ONGOING;
+        /**
+         * -0,0- | -0,1- | -0,2-
+         * -1,0- | -1,1- | -1,2-
+         * -2,0- | -2,1- | -2,2-
+         *
+         * win when: row matches, foreach row : each cell.col() is same val
+         * 	: col matches, foreach col : each cell.row() is same val
+         * 	: diagonal top left to bot right : same vals for (0,0),(1,1),(2,2)
+         * 	: diagonal top right to bot left : same vals for (2,0),(1,1),(0,2)
+         */
+        boolean rowIsFull = false;
+
+
+
+        if( !rowIsFull)return GameState.ONGOING;
+        else return GameState.X_WINS;
     }
 
     public boolean isLegalMove(CellSelection selection) {
@@ -42,7 +57,8 @@ public class TicTacToeBoard {
         * TODO - Based on the current state of the board, is the input selection allowed? Note that this method does not
         *  need to check that the row and column are in the right range. The InputParser is already doing that
         * */
-        return false;
+        if( cells[selection.row()][selection.col()] != EMPTY) return true;
+        else return false;
     }
 
 }
