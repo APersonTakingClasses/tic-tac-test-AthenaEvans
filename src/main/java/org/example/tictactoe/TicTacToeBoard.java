@@ -35,18 +35,18 @@ public class TicTacToeBoard {
         /*
          * TODO - Based on the current state of the board, is the game still ongoing, has a player won, or is there a tie?
          */
-        /**
-         * -0,0- | -0,1- | -0,2-
-         * -1,0- | -1,1- | -1,2-
-         * -2,0- | -2,1- | -2,2-
-         *
-         * win when: row matches, foreach row : each cell.col() is same val
-         * 	: col matches, foreach col : each cell.row() is same val
-         * 	: diagonal top left to bot right : same vals for (0,0),(1,1),(2,2)
-         * 	: diagonal top right to bot left : same vals for (2,0),(1,1),(0,2)
+        /*
+          -0,0- | -0,1- | -0,2-
+          -1,0- | -1,1- | -1,2-
+          -2,0- | -2,1- | -2,2-
+
+          win when: row matches, foreach row : each cell.col() is same val
+          	: col matches, foreach col : each cell.row() is same val
+          	: diagonal top left to bot right : same vals for (0,0),(1,1),(2,2)
+          	: diagonal top right to bot left : same vals for (2,0),(1,1),(0,2)
          */
         boolean gameOver = false, xWIns=false, oWins=false, gameTied=false;
-        TicTacToeCell first=null, second=null, third=null;
+        TicTacToeCell first, second, third;
 
         //loop for rows
         for(int row = 0; row<3; row++){
@@ -55,6 +55,7 @@ public class TicTacToeBoard {
             third = this.cells[row][2];
             if(first == EMPTY) {
                 gameOver=false;
+                gameTied=false;
             }
             else if( first == second && first == third){
                 gameOver=true;
@@ -72,6 +73,7 @@ public class TicTacToeBoard {
             third = this.cells[2][col];
             if (first == EMPTY) {
                 gameOver=false;
+                gameTied=false;
             }
             else if( first == second && first == third){
                 switch ( first ) {
@@ -85,14 +87,15 @@ public class TicTacToeBoard {
         first = this.cells[0][0];
         second = this.cells[1][1];
         third = this.cells[2][2];
-        if( first != EMPTY){
+        if( first != EMPTY ){
             if(first == second && first == third){
                 switch ( first ){
                     case O -> oWins=true;
                     case X -> xWIns=true;
                 }
+                gameOver=true;
+                gameTied=false;
             }
-            gameOver=true;
         }
 
         //diag right->left : same vals for (2,0),(1,1),(0,2)
@@ -117,13 +120,15 @@ public class TicTacToeBoard {
                 second = this.cells[row][1];
                 third = this.cells[row][2];
                 if( first != EMPTY && second != EMPTY &&
-                    third != EMPTY) return GameState.TIE;
+                    third != EMPTY) gameTied=true;
             }
         }
 
         // results
-        if ( xWIns) return  GameState.X_WINS;
+        if( !gameOver ) return GameState.ONGOING;
+        else if ( xWIns) return  GameState.X_WINS;
         else if(oWins) return  GameState.O_WINS;
+        else if (gameTied) return GameState.TIE;
         else return GameState.ONGOING;
     }
 
@@ -132,8 +137,7 @@ public class TicTacToeBoard {
         * TODO - Based on the current state of the board, is the input selection allowed? Note that this method does not
         *  need to check that the row and column are in the right range. The InputParser is already doing that
         * */
-        if( cells[selection.row()][selection.col()] != EMPTY) return true;
-        else return false;
+        return cells[selection.row()][selection.col()] != EMPTY;
     }
 
 }
