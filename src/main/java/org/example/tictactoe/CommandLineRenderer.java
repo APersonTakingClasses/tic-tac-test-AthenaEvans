@@ -1,6 +1,5 @@
 package org.example.tictactoe;
 
-import org.example.tictactoe.model.CellSelection;
 import org.example.tictactoe.model.TicTacToeCell;
 
 import java.io.PrintStream;
@@ -15,18 +14,12 @@ public class CommandLineRenderer {
 
     public void renderBoard(TicTacToeBoard board) {
         /*
-        * TODO - This function should use the "output" PrintStream to print a command line representation of the board.
-        *        Check out how the BoardRendererTest JUnit test expects it to be rendered. This method should not call
-        *        renderMessage or renderError. Just directly print to this.output
-        * */
-        /**
-         * 012 3 456 7 8910 11
-         * --- | --- | ---
-         * --- | --- | ---
-         * --- | --- | ---
+          012 3 456 7 8910 11
+          --- | --- | ---
+          --- | --- | ---
+          --- | --- | ---
          */
         StringBuilder rowVal = new StringBuilder();
-        String cellVal = "";
         String divVal = "|";
         TicTacToeCell[][] renderBoard = board.getCells();
         int trueCol = 4;
@@ -42,18 +35,9 @@ public class CommandLineRenderer {
                     if(col == 5) trueCol= 1;    // 5mod3 = 2
                     if(col == 9) trueCol= 2;    // 9mod3 = 0
                     switch ( renderBoard[row][trueCol] ){
-                        case EMPTY -> {
-                            rowVal.append(" ");
-                            break;
-                        }
-                        case X -> {
-                            rowVal.append("X");
-                            break;
-                        }
-                        case O -> {
-                            rowVal.append("O");
-                            break;
-                        }
+                        case EMPTY -> rowVal.append(" ");
+                        case X -> rowVal.append("X");
+                        case O -> rowVal.append("O");
                     }
                 }
             }
