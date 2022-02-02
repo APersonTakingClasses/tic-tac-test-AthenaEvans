@@ -21,7 +21,7 @@ class BoardRendererTest {
 
         CommandLineRenderer renderer = new CommandLineRenderer(fakeStream);
         renderer.renderBoard(new TicTacToeBoard(new TicTacToeCell[][]{
-            { EMPTY, X, O },
+            { EMPTY, X, X },
             { EMPTY, O, X },
             { EMPTY, X, O },
         }));
@@ -29,7 +29,7 @@ class BoardRendererTest {
         String output = outputStreamCaptor.toString(Charset.defaultCharset());
         assertEquals(
             CommandLineRenderer.BOARD_BORDER + "\n"
-            + "   | X | O \n"
+            + "   | X | X \n"
             + "   | O | X \n"
             + "   | X | O \n"
             + CommandLineRenderer.BOARD_BORDER + "\n", output);
