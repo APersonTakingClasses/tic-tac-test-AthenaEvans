@@ -31,7 +31,7 @@ public class CommandLineRenderer {
         TicTacToeCell[][] renderBoard = board.getCells();
         int trueCol = 4;
 
-        this.output.println(BOARD_BORDER);
+        this.output.print(BOARD_BORDER+"\n");
         for( int row = 0; row < 3; row++ ){
             for(int col = 0; col<12; col++){
                 if(col%2==0) rowVal.append(" ");        //stays " " = 0,2,4,6,8,10,11
@@ -61,7 +61,7 @@ public class CommandLineRenderer {
             this.output.print(rowVal+"\n");
             rowVal = new StringBuilder();
         }
-        this.output.println(BOARD_BORDER);
+        this.output.print(BOARD_BORDER+"\n");
     }
 
     public void renderMessage(String message) {
