@@ -4,14 +4,12 @@ import org.example.tictactoe.input.InputMoveException;
 import org.example.tictactoe.input.InputParser;
 import org.example.tictactoe.model.CellSelection;
 import org.example.tictactoe.model.TicTacToeCell;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.example.tictactoe.model.TicTacToeCell.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.example.tictactoe.model.TicTacToeCell.EMPTY;
+import static org.example.tictactoe.model.TicTacToeCell.X;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InputParserTest {
     /*
@@ -30,7 +28,7 @@ class InputParserTest {
     * */
     @Test
     void userInputsValid() throws InputMoveException {
-        String output, tester;
+        String tester;
         var board = new TicTacToeBoard(new TicTacToeCell[][]{
                 { EMPTY, EMPTY, EMPTY },
                 { EMPTY, EMPTY, EMPTY },
@@ -43,9 +41,9 @@ class InputParserTest {
         assertEquals(cellSelection,inputParser.parseInput(tester,board));
     }
 
-    //2. If the user tries to use a coordinate with an out of bounds row or column, the InputParser throws an InputMoveException
+    //2. If the user tries to use a coordinate with an out-of-bounds row or column, the InputParser throws an InputMoveException
     @Test
-    void userInputsOutOfBounds() throws InputMoveException {
+    void userInputsOutOfBounds() {
         String tester;
         var board = new TicTacToeBoard(new TicTacToeCell[][]{
                 { EMPTY, EMPTY, EMPTY },
@@ -57,16 +55,15 @@ class InputParserTest {
 
 
         InputMoveException thrown =
-                assertThrows(InputMoveException.class, () -> {
-                    inputParser.parseInput(tester,board);
-                }, "One of your selections was out of bounds");
+                assertThrows(InputMoveException.class, () ->
+                        inputParser.parseInput(tester,board), "One of your selections was out of bounds");
 
         assertEquals("One of your selections was out of bounds", thrown.getMessage());
     }
 
     //3. If the user tries to use a coordinate that has too many components, the InputParser throws an InputMoveException
     @Test
-    void userInputsTooMany() throws InputMoveException {
+    void userInputsTooMany() {
         String tester;
         var board = new TicTacToeBoard(new TicTacToeCell[][]{
                 { EMPTY, EMPTY, EMPTY },
@@ -77,16 +74,15 @@ class InputParserTest {
         InputParser inputParser = new InputParser();
 
         InputMoveException thrown =
-                assertThrows(InputMoveException.class, () -> {
-                    inputParser.parseInput(tester,board);
-                }, "Invalid number of coordinates");
+                assertThrows(InputMoveException.class, () ->
+                        inputParser.parseInput(tester,board), "Invalid number of coordinates");
 
         assertEquals("Invalid number of coordinates", thrown.getMessage());
     }
 
     //4. If the user tries to use a coordinate with invalid integer numbers, the InputParser throws an InputMoveException
     @Test
-    void userInputsInvalidIntegers() throws InputMoveException {
+    void userInputsInvalidIntegers() {
         String tester;
         var board = new TicTacToeBoard(new TicTacToeCell[][]{
                 { EMPTY, EMPTY, EMPTY },
@@ -97,9 +93,8 @@ class InputParserTest {
         InputParser inputParser = new InputParser();
 
         InputMoveException thrown =
-                assertThrows(InputMoveException.class, () -> {
-                    inputParser.parseInput(tester,board);
-                }, "One of your selections was out of bounds");
+                assertThrows(InputMoveException.class, () ->
+                        inputParser.parseInput(tester,board), "One of your selections was out of bounds");
 
         assertEquals("One of your selections was out of bounds", thrown.getMessage());
     }
@@ -108,7 +103,7 @@ class InputParserTest {
     /*5. If the user tries to choose a coordinate in a square that is already filled with another value, the InputParser
      *     throws an InputMoveException*/
     @Test
-    void userInputsIntoFilledCell() throws InputMoveException {
+    void userInputsIntoFilledCell() {
         String tester;
         var board = new TicTacToeBoard(new TicTacToeCell[][]{
                 { X, EMPTY, EMPTY },
@@ -119,9 +114,8 @@ class InputParserTest {
         InputParser inputParser = new InputParser();
 
         InputMoveException thrown =
-                assertThrows(InputMoveException.class, () -> {
-                    inputParser.parseInput(tester,board);
-                }, "That is not an allowed move");
+                assertThrows(InputMoveException.class, () ->
+                        inputParser.parseInput(tester,board), "That is not an allowed move");
 
         assertEquals("That is not an allowed move", thrown.getMessage());
     }
