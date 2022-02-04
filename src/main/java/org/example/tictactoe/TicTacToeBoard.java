@@ -5,7 +5,6 @@ import org.example.tictactoe.model.GameState;
 import org.example.tictactoe.model.TicTacToeCell;
 
 import static org.example.tictactoe.model.TicTacToeCell.EMPTY;
-import static org.example.tictactoe.model.TicTacToeCell.X;
 
 public class TicTacToeBoard {
 
@@ -32,9 +31,6 @@ public class TicTacToeBoard {
     }
 
     public GameState checkGameState() {
-        /*
-         * TODO - Based on the current state of the board, is the game still ongoing, has a player won, or is there a tie?
-         */
         /*
           -0,0- | -0,1- | -0,2-
           -1,0- | -1,1- | -1,2-
@@ -133,11 +129,9 @@ public class TicTacToeBoard {
     }
 
     public boolean isLegalMove(CellSelection selection) {
-        /*
-        * TODO - Based on the current state of the board, is the input selection allowed? Note that this method does not
-        *  need to check that the row and column are in the right range. The InputParser is already doing that
-        * */
-        return cells[selection.row()][selection.col()] != EMPTY;
+        if(cells[selection.row()][selection.col()] == EMPTY) return true;
+        else return false;
+        //return true;
     }
 
 }
